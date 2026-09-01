@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akash Saxena — DevSecOps & Cloud Security Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #1c2128;
+    --border: #21262d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --dim: #484f58;
+    --blue: #58a6ff;
+    --green: #3fb950;
+    --orange: #f0883e;
+    --purple: #bc8cff;
+    --red: #ff7b72;
+    --yellow: #d29922;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 13.5px;
+    line-height: 1.65;
+  }
+
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(13,17,23,0.93);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; height: 52px;
+  }
+  .nav-brand { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--muted); }
+  .nav-brand span { color: var(--blue); }
+  .nav-links { display: flex; gap: 20px; list-style: none; }
+  .nav-links a { font-size: 12px; color: var(--muted); transition: color .15s; }
+  .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+  /* PDF button */
+  .pdf-btn {
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(88,166,255,.1); border: 1px solid rgba(88,166,255,.3);
+    color: var(--blue); border-radius: 6px; padding: 5px 12px;
+    font-size: 12px; font-family: 'JetBrains Mono', monospace; cursor: pointer;
+    transition: background .15s;
+  }
+  .pdf-btn:hover { background: rgba(88,166,255,.18); text-decoration: none; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 56px 40px 48px;
+    border-bottom: 1px solid var(--border);
+    max-width: 1100px; margin: 0 auto;
+  }
+  .hero-top { display: flex; align-items: flex-start; gap: 28px; margin-bottom: 36px; }
+  .avatar {
+    width: 76px; height: 76px; border-radius: 50%;
+    background: linear-gradient(135deg, #1a3a5c, #0d3b2e);
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 24px; font-weight: 600;
+    color: var(--blue); flex-shrink: 0;
+  }
+  .hero-name { font-size: 26px; font-weight: 600; letter-spacing: -.02em; margin-bottom: 5px; }
+  .hero-tagline { font-size: 14px; color: var(--muted); margin-bottom: 12px; font-weight: 300; }
+  .hero-tagline strong { color: var(--blue); font-weight: 500; }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; color: var(--muted); }
+  .hero-meta-item { display: flex; align-items: center; gap: 5px; }
+  .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: blink 2s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+  /* Pipeline */
+  .pipeline-visual {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 20px 24px; overflow-x: auto;
+  }
+  .pipeline-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--dim); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 14px;
+  }
+  .pipeline { display: flex; align-items: center; min-width: 580px; }
+  .pipe-stage { display: flex; flex-direction: column; align-items: center; gap: 5px; flex: 1; }
+  .pipe-icon {
+    width: 40px; height: 40px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; border: 1px solid;
+  }
+  .pipe-icon.blue  { background: rgba(88,166,255,.1);  border-color: rgba(88,166,255,.3);  }
+  .pipe-icon.green { background: rgba(63,185,80,.1);   border-color: rgba(63,185,80,.3);   }
+  .pipe-icon.purple{ background: rgba(188,140,255,.1); border-color: rgba(188,140,255,.3); }
+  .pipe-icon.orange{ background: rgba(240,136,62,.1);  border-color: rgba(240,136,62,.3);  }
+  .pipe-name  { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: var(--muted); text-align: center; line-height: 1.3; }
+  .pipe-tools { font-size: 9px; color: var(--dim); text-align: center; line-height: 1.4; }
+  .pipe-arrow { color: var(--dim); font-size: 16px; flex-shrink: 0; margin-bottom: 22px; padding: 0 1px; }
+
+  /* ── BODY LAYOUT ── */
+  .body-wrap {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 296px;
+  }
+  .main-col { padding: 40px 40px 60px; border-right: 1px solid var(--border); }
+  .side-col  { padding: 40px 28px 60px; }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 44px; }
+  .section-title { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+  .section-title h2 { font-size: 13px; font-weight: 600; white-space: nowrap; }
+  .section-title .rule { flex: 1; height: 1px; background: var(--border); }
+  .section-title .sub { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--dim); white-space: nowrap; }
+
+  /* ── PILLARS ── */
+  .pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .pillar { border: 1px solid var(--border); border-radius: 8px; padding: 13px 15px; background: var(--surface); }
+  .pillar-head { display: flex; align-items: center; gap: 7px; margin-bottom: 7px; }
+  .pillar-icon { font-size: 15px; }
+  .pillar-title { font-size: 12px; font-weight: 600; }
+  .pillar-items { list-style: none; display: flex; flex-wrap: wrap; gap: 4px; }
+  .pillar-items li {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    padding: 2px 7px; border-radius: 3px;
+    background: var(--surface2); color: var(--muted); border: 1px solid var(--border);
+  }
+
+  /* ── CAREER TIMELINE ── */
+  .timeline { position: relative; padding-left: 24px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px;
+    width: 2px; background: linear-gradient(to bottom, var(--blue), var(--green), var(--purple), var(--orange));
+    border-radius: 2px;
+  }
+  .tl-item { position: relative; margin-bottom: 20px; }
+  .tl-item:last-child { margin-bottom: 0; }
+  .tl-dot {
+    position: absolute; left: -21px; top: 4px;
+    width: 12px; height: 12px; border-radius: 50%;
+    border: 2px solid var(--bg); z-index: 1;
+  }
+  .tl-dot.ops    { background: var(--muted); }
+  .tl-dot.devops { background: var(--blue); }
+  .tl-dot.cloud  { background: var(--green); }
+  .tl-dot.sec    { background: var(--purple); }
+  .tl-dot.dso    { background: var(--orange); }
+  .tl-dot.now    { background: var(--yellow); box-shadow: 0 0 0 3px rgba(210,153,34,.25); }
+
+  .tl-header { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 3px; }
+  .tl-role { font-size: 13px; font-weight: 600; }
+  .tl-period { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--dim); white-space: nowrap; }
+  .tl-company { font-size: 11px; color: var(--blue); margin-bottom: 4px; }
+  .tl-growth {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 10px; font-weight: 500;
+    padding: 1px 7px; border-radius: 20px; margin-bottom: 4px;
+  }
+  .tl-growth.ops    { color: var(--muted);  background: rgba(139,148,158,.1); border: 1px solid rgba(139,148,158,.2); }
+  .tl-growth.devops { color: var(--blue);   background: rgba(88,166,255,.1);  border: 1px solid rgba(88,166,255,.2);  }
+  .tl-growth.cloud  { color: var(--green);  background: rgba(63,185,80,.1);   border: 1px solid rgba(63,185,80,.2);   }
+  .tl-growth.sec    { color: var(--purple); background: rgba(188,140,255,.1); border: 1px solid rgba(188,140,255,.2); }
+  .tl-growth.dso    { color: var(--orange); background: rgba(240,136,62,.1);  border: 1px solid rgba(240,136,62,.2);  }
+  .tl-growth.now    { color: var(--yellow); background: rgba(210,153,34,.1);  border: 1px solid rgba(210,153,34,.2);  }
+  .tl-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
+
+  /* ── PROJECT CARDS ── */
+  .project-cards { display: flex; flex-direction: column; gap: 14px; }
+  .proj-card {
+    border: 1px solid var(--border); border-radius: 10px;
+    overflow: hidden; background: var(--surface);
+    transition: border-color .2s;
+  }
+  .proj-card:hover { border-color: var(--blue); }
+
+  .proj-header {
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: flex-start; gap: 14px;
+  }
+  .proj-emoji { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+  .proj-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .proj-subtitle { font-size: 11px; color: var(--muted); }
+  .proj-tags { display: flex; flex-wrap: wrap; gap: 5px; padding: 10px 20px; border-bottom: 1px solid var(--border); }
+  .proj-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    padding: 2px 7px; border-radius: 3px;
+    background: var(--surface2); color: var(--muted); border: 1px solid var(--border);
+  }
+
+  .proj-pso { display: grid; grid-template-columns: 1fr 1fr 1fr; border-top: none; }
+  .pso-col { padding: 14px 16px; }
+  .pso-col + .pso-col { border-left: 1px solid var(--border); }
+  .pso-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    text-transform: uppercase; letter-spacing: .07em; margin-bottom: 6px;
+    padding: 2px 6px; border-radius: 3px; display: inline-block;
+  }
+  .pso-label.problem  { color: var(--red);    background: rgba(255,123,114,.08); }
+  .pso-label.solution { color: var(--blue);   background: rgba(88,166,255,.08);  }
+  .pso-label.outcome  { color: var(--green);  background: rgba(63,185,80,.08);   }
+  .pso-text { font-size: 12px; color: var(--muted); line-height: 1.55; }
+  .pso-text strong { color: var(--text); font-weight: 500; }
+
+  /* ── DEVSECOPS LIFECYCLE MATRIX ── */
+  .lifecycle-wrap {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden;
+  }
+  .lifecycle-header {
+    padding: 12px 16px; border-bottom: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--dim); text-transform: uppercase; letter-spacing: .07em;
+  }
+  .lifecycle-grid { display: grid; grid-template-columns: repeat(8, 1fr); }
+  .lc-col { border-right: 1px solid var(--border); }
+  .lc-col:last-child { border-right: none; }
+  .lc-phase {
+    padding: 10px 8px 8px;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+  }
+  .lc-phase-icon { font-size: 14px; margin-bottom: 3px; }
+  .lc-phase-name { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--text); font-weight: 600; }
+  .lc-tools { padding: 8px 6px; display: flex; flex-direction: column; gap: 4px; min-height: 100px; }
+  .lc-tool {
+    font-size: 9px; padding: 3px 5px; border-radius: 3px; text-align: center;
+    border: 1px solid; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .lc-tool.blue   { color: #79c0ff; background: rgba(88,166,255,.08);  border-color: rgba(88,166,255,.2);  }
+  .lc-tool.green  { color: #7ee787; background: rgba(63,185,80,.08);   border-color: rgba(63,185,80,.2);   }
+  .lc-tool.purple { color: #d2a8ff; background: rgba(188,140,255,.08); border-color: rgba(188,140,255,.2); }
+  .lc-tool.orange { color: #ffa657; background: rgba(240,136,62,.08);  border-color: rgba(240,136,62,.2);  }
+  .lc-tool.red    { color: #ff7b72; background: rgba(255,123,114,.08); border-color: rgba(255,123,114,.2); }
+  .lc-tool.yellow { color: #e3b341; background: rgba(210,153,34,.08);  border-color: rgba(210,153,34,.2);  }
+
+  /* ── CURRENTLY EXPLORING ── */
+  .exploring-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .explore-card {
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px 15px; background: var(--surface);
+    position: relative; overflow: hidden;
+  }
+  .explore-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  }
+  .explore-card.ai::before    { background: linear-gradient(90deg, var(--purple), var(--blue)); }
+  .explore-card.mlops::before { background: linear-gradient(90deg, var(--green), var(--blue)); }
+  .explore-card.finops::before{ background: linear-gradient(90deg, var(--orange), var(--yellow)); }
+  .explore-icon { font-size: 20px; margin-bottom: 8px; }
+  .explore-title { font-size: 12px; font-weight: 600; margin-bottom: 5px; }
+  .explore-desc  { font-size: 11px; color: var(--muted); line-height: 1.5; }
+  .explore-status {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+    margin-top: 8px; color: var(--dim);
+  }
+  .explore-status::before {
+    content: ''; width: 5px; height: 5px; border-radius: 50%;
+    background: var(--green); animation: blink 2s infinite;
+  }
+
+  /* ── EXPERIENCE ── */
+  .exp-item { margin-bottom: 18px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .exp-header {
+    padding: 13px 18px; background: var(--surface);
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 8px; align-items: start; border-bottom: 1px solid var(--border);
+  }
+  .exp-role { font-size: 13.5px; font-weight: 600; margin-bottom: 3px; }
+  .exp-company { font-size: 12px; color: var(--blue); }
+  .exp-period { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); text-align: right; white-space: nowrap; }
+  .exp-stack {
+    padding: 7px 18px; background: rgba(88,166,255,.03);
+    border-bottom: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--dim); line-height: 1.6;
+  }
+  .exp-highlights {
+    padding: 9px 18px; border-bottom: 1px solid var(--border);
+    display: flex; flex-wrap: wrap; gap: 5px;
+  }
+  .hl-tag {
+    font-size: 10px; font-weight: 500; padding: 2px 8px;
+    border-radius: 20px; white-space: nowrap;
+  }
+  .hl-tag.cicd   { background: rgba(88,166,255,.12);  color: #79c0ff; border: 1px solid rgba(88,166,255,.25); }
+  .hl-tag.sast   { background: rgba(188,140,255,.12); color: #d2a8ff; border: 1px solid rgba(188,140,255,.25); }
+  .hl-tag.iac    { background: rgba(240,136,62,.12);  color: #ffa657; border: 1px solid rgba(240,136,62,.25); }
+  .hl-tag.k8s    { background: rgba(63,185,80,.12);   color: #7ee787; border: 1px solid rgba(63,185,80,.25); }
+  .hl-tag.policy { background: rgba(210,153,34,.12);  color: #e3b341; border: 1px solid rgba(210,153,34,.25); }
+  .hl-tag.vuln   { background: rgba(255,123,114,.12); color: #ff7b72; border: 1px solid rgba(255,123,114,.25); }
+  .hl-tag.gitops { background: rgba(63,185,80,.12);   color: #56d364; border: 1px solid rgba(63,185,80,.25); }
+  .hl-tag.monitor{ background: rgba(139,148,158,.12); color: #8b949e; border: 1px solid rgba(139,148,158,.25); }
+  .exp-body { padding: 12px 18px; }
+  .bullet-group { margin-bottom: 11px; }
+  .bullet-group-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 9px; text-transform: uppercase;
+    letter-spacing: .08em; margin-bottom: 5px; padding: 2px 6px;
+    border-radius: 3px; display: inline-block;
+  }
+  .bullet-group-label.cicd   { color: #79c0ff; background: rgba(88,166,255,.08); }
+  .bullet-group-label.sast   { color: #d2a8ff; background: rgba(188,140,255,.08); }
+  .bullet-group-label.k8s    { color: #7ee787; background: rgba(63,185,80,.08); }
+  .bullet-group-label.iac    { color: #ffa657; background: rgba(240,136,62,.08); }
+  .bullet-group-label.policy { color: #e3b341; background: rgba(210,153,34,.08); }
+  .bullet-group-label.vuln   { color: #ff7b72; background: rgba(255,123,114,.08); }
+  .bullet-group-label.gitops { color: #56d364; background: rgba(63,185,80,.08); }
+  .bullet-group-label.ai     { color: #bc8cff; background: rgba(188,140,255,.08); }
+  .bullet-group-label.monitor{ color: #8b949e; background: rgba(139,148,158,.08); }
+  .bullets { list-style: none; }
+  .bullets li { font-size: 12.5px; color: var(--muted); padding: 3px 0 3px 14px; position: relative; line-height: 1.6; }
+  .bullets li::before { content: '▸'; position: absolute; left: 0; font-size: 10px; top: 5px; color: var(--dim); }
+  .bullets li strong { color: var(--text); font-weight: 500; }
+
+  /* ── SIDEBAR ── */
+  .side-section { margin-bottom: 28px; }
+  .side-title {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    text-transform: uppercase; letter-spacing: .08em; color: var(--dim);
+    margin-bottom: 11px; padding-bottom: 6px; border-bottom: 1px solid var(--border);
+  }
+  .contact-row { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; font-size: 12px; color: var(--muted); }
+  .contact-row .ic { color: var(--blue); flex-shrink: 0; }
+  .contact-row a { color: var(--muted); }
+  .contact-row a:hover { color: var(--blue); }
+
+  .impact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+  .impact-cell { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 9px 11px; }
+  .impact-cell .num { font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 600; color: var(--green); line-height: 1.1; margin-bottom: 2px; }
+  .impact-cell .lbl { font-size: 10px; color: var(--muted); line-height: 1.3; }
+
+  .skill-row { margin-bottom: 9px; }
+  .skill-name { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--muted); margin-bottom: 4px; }
+  .skill-name span:last-child { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--dim); }
+  .skill-bar { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .skill-fill { height: 100%; border-radius: 2px; background: var(--blue); }
+  .skill-fill.green  { background: var(--green); }
+  .skill-fill.purple { background: var(--purple); }
+  .skill-fill.orange { background: var(--orange); }
+
+  .cert-item { display: flex; align-items: flex-start; gap: 7px; padding: 5px 0; border-bottom: 1px solid var(--border); font-size: 11.5px; color: var(--muted); }
+  .cert-item:last-child { border-bottom: none; }
+  .cert-item::before { content: '▸'; color: var(--blue); flex-shrink: 0; font-size: 10px; margin-top: 2px; }
+
+  .award-row { display: flex; gap: 9px; padding: 7px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .award-row:last-child { border-bottom: none; }
+  .award-em { font-size: 15px; flex-shrink: 0; }
+  .award-title { font-size: 12px; font-weight: 500; margin-bottom: 1px; }
+  .award-desc  { font-size: 11px; color: var(--muted); line-height: 1.4; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border); padding: 18px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    max-width: 1100px; margin: 0 auto;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--dim);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    .body-wrap { grid-template-columns: 1fr; }
+    .main-col { border-right: none; border-bottom: 1px solid var(--border); padding: 28px 20px; }
+    .side-col { padding: 28px 20px; }
+    .pillars { grid-template-columns: 1fr; }
+    .proj-pso { grid-template-columns: 1fr; }
+    .pso-col + .pso-col { border-left: none; border-top: 1px solid var(--border); }
+    .lifecycle-grid { grid-template-columns: repeat(4, 1fr); }
+    .exploring-grid { grid-template-columns: 1fr; }
+    nav { padding: 0 20px; }
+    .hero { padding: 36px 20px; }
+    .nav-links { display: none; }
+    footer { padding: 16px 20px; flex-direction: column; gap: 6px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .dot, .explore-status::before { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-brand"><span>~/</span>akash-saxena</div>
+  <ul class="nav-links">
+    <li><a href="#built">What I've Built</a></li>
+    <li><a href="#lifecycle">Lifecycle Matrix</a></li>
+    <li><a href="#journey">Journey</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#exploring">Exploring</a></li>
+  </ul>
+  <a class="pdf-btn" href="#" onclick="window.print(); return false;">⬇ Download PDF</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="avatar">AS</div>
+    <div class="hero-info">
+      <div class="hero-name">Akash Saxena</div>
+      <div class="hero-tagline">
+        Senior <strong>DevSecOps</strong> &amp; Cloud Security Engineer &nbsp;·&nbsp;
+        Shift-Left Security &nbsp;·&nbsp; Platform Engineering &nbsp;·&nbsp; GitOps
+      </div>
+      <div class="hero-meta">
+        <div class="hero-meta-item"><div class="dot"></div> Open to opportunities · Hyderabad, India</div>
+        <div class="hero-meta-item">9+ yrs · Azure · AWS · GCP</div>
+        <div class="hero-meta-item">CKA · AZ-500 · AZ-400 · Terraform Associate</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pipeline-visual">
+    <div class="pipeline-label">// secure devsecops pipeline — what I design &amp; operate</div>
+    <div class="pipeline">
+      <div class="pipe-stage">
+        <div class="pipe-icon blue">🧑‍💻</div>
+        <div class="pipe-name">Code &amp;<br>Commit</div>
+        <div class="pipe-tools">Git · GitHub<br>Branch Policies</div>
+      </div>
+      <div class="pipe-arrow">›</div>
+      <div class="pipe-stage">
+        <div class="pipe-icon purple">🔍</div>
+        <div class="pipe-name">SAST &amp;<br>Secrets Scan</div>
+        <div class="pipe-tools">SonarCloud<br>Trivy · tfsec</div>
+      </div>
+      <div class="pipe-arrow">›</div>
+      <div class="pipe-stage">
+        <div class="pipe-icon orange">📦</div>
+        <div class="pipe-name">Build &amp;<br>IaC Scan</div>
+        <div class="pipe-tools">Terraform<br>Packer · Wiz</div>
+      </div>
+      <div class="pipe-arrow">›</div>
+      <div class="pipe-stage">
+        <div class="pipe-icon green">🐳</div>
+        <div class="pipe-name">Container<br>Harden</div>
+        <div class="pipe-tools">ACR · Trivy<br>Image Signing</div>
+      </div>
+      <div class="pipe-arrow">›</div>
+      <div class="pipe-stage">
+        <div class="pipe-icon blue">🚀</div>
+        <div class="pipe-name">GitOps<br>Deploy</div>
+        <div class="pipe-tools">Argo CD · Helm<br>GitHub Actions</div>
+      </div>
+      <div class="pipe-arrow">›</div>
+      <div class="pipe-stage">
+        <div class="pipe-icon purple">🛡</div>
+        <div class="pipe-name">Runtime<br>Posture</div>
+        <div class="pipe-tools">Wiz CNAPP<br>KSPM · Sentinel</div>
+      </div>
+      <div class="pipe-arrow">›</div>
+      <div class="pipe-stage">
+        <div class="pipe-icon green">✅</div>
+        <div class="pipe-name">Compliance<br>&amp; Govern</div>
+        <div class="pipe-tools">Azure Policy<br>OPA · Conftest</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ BODY ══ -->
+<div class="body-wrap">
+<div class="main-col">
+
+  <!-- WHAT I'VE BUILT -->
+  <div class="section" id="built">
+    <div class="section-title">
+      <h2>What I've Built</h2>
+      <div class="rule"></div>
+      <div class="sub">problem → solution → outcome</div>
+    </div>
+    <div class="project-cards">
+
+      <!-- Card 1 -->
+      <div class="proj-card">
+        <div class="proj-header">
+          <div class="proj-emoji">☸️</div>
+          <div>
+            <div class="proj-title">Secure AKS Platform with GitOps</div>
+            <div class="proj-subtitle">Wells Fargo · 2026 · Azure Kubernetes Service</div>
+          </div>
+        </div>
+        <div class="proj-tags">
+          <span class="proj-tag">AKS</span><span class="proj-tag">Argo CD</span><span class="proj-tag">Helm</span>
+          <span class="proj-tag">RBAC</span><span class="proj-tag">Network Policies</span><span class="proj-tag">Wiz KSPM</span>
+          <span class="proj-tag">GitHub Actions</span><span class="proj-tag">OIDC</span><span class="proj-tag">Trivy</span>
+        </div>
+        <div class="proj-pso">
+          <div class="pso-col">
+            <div class="pso-label problem">Problem</div>
+            <div class="pso-text">No standardised Kubernetes deployment model — ad-hoc manifests, inconsistent RBAC, no security gates in delivery pipelines, manual cluster changes causing config drift.</div>
+          </div>
+          <div class="pso-col">
+            <div class="pso-label solution">Solution</div>
+            <div class="pso-text">Designed a <strong>GitOps-driven AKS platform</strong> using Argo CD and Helm with OIDC-authenticated pipelines embedding SonarCloud SAST, Trivy scanning, and Wiz KSPM. Enforced least-privilege RBAC, Network Policies, and Security Contexts across all workloads.</div>
+          </div>
+          <div class="pso-col">
+            <div class="pso-label outcome">Outcome</div>
+            <div class="pso-text"><strong>Zero manual cluster changes</strong> — all deployments PR-driven and auditable. Security gates blocking vulnerable images before they reach production. Full runtime posture visibility via Wiz.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="proj-card">
+        <div class="proj-header">
+          <div class="proj-emoji">🛡</div>
+          <div>
+            <div class="proj-title">Cross-Cloud Security Remediation Program</div>
+            <div class="proj-subtitle">GlobalLogic / Norstella · 2024–2026 · AWS + Azure · Awarded Idea Alchemist 2025</div>
+          </div>
+        </div>
+        <div class="proj-tags">
+          <span class="proj-tag">Wiz CSPM</span><span class="proj-tag">AWS</span><span class="proj-tag">Azure</span>
+          <span class="proj-tag">n8n</span><span class="proj-tag">Jira</span><span class="proj-tag">Slack</span>
+          <span class="proj-tag">Terraform</span><span class="proj-tag">Azure Policy</span><span class="proj-tag">Python</span>
+        </div>
+        <div class="proj-pso">
+          <div class="pso-col">
+            <div class="pso-label problem">Problem</div>
+            <div class="pso-text">~250,000 Critical and High vulnerabilities across AWS and Azure with no systematic triage, no SLA enforcement, and findings accumulating over 30 days with no ownership.</div>
+          </div>
+          <div class="pso-col">
+            <div class="pso-label solution">Solution</div>
+            <div class="pso-text">Architected a <strong>risk-based remediation framework</strong> with structured triage, automated remediation playbooks, SLA-driven tracking, and n8n-powered workflow orchestration feeding into Slack and Jira for real-time ownership and accountability.</div>
+          </div>
+          <div class="pso-col">
+            <div class="pso-label outcome">Outcome</div>
+            <div class="pso-text"><strong>70–80% backlog reduction</strong>. Zero Critical/High findings older than 30 days. Enterprise-wide governance model adopted across all cloud workloads. Recognised with <em>Idea Alchemist 2025</em> award.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="proj-card">
+        <div class="proj-header">
+          <div class="proj-emoji">🔁</div>
+          <div>
+            <div class="proj-title">DevSecOps Pipeline Blueprint</div>
+            <div class="proj-subtitle">GlobalLogic / Catalina Marketing · 2024–2026 · Azure DevOps + GitHub Actions</div>
+          </div>
+        </div>
+        <div class="proj-tags">
+          <span class="proj-tag">Azure DevOps</span><span class="proj-tag">GitHub Actions</span><span class="proj-tag">SonarCloud</span>
+          <span class="proj-tag">DAST</span><span class="proj-tag">tfsec</span><span class="proj-tag">Wiz CNAPP</span>
+          <span class="proj-tag">ACR</span><span class="proj-tag">Terraform</span><span class="proj-tag">Policy-as-Code</span>
+        </div>
+        <div class="proj-pso">
+          <div class="pso-col">
+            <div class="pso-label problem">Problem</div>
+            <div class="pso-text">Security was entirely post-deployment — no SAST, no IaC scanning, no container hardening in pipelines. Vulnerable code and misconfigured infrastructure reaching production regularly.</div>
+          </div>
+          <div class="pso-col">
+            <div class="pso-label solution">Solution</div>
+            <div class="pso-text">Engineered a <strong>full shift-left DevSecOps pipeline</strong> integrating SonarCloud SAST, DAST, tfsec IaC scanning, Trivy container scanning, and Wiz CNAPP — with quality gates blocking non-compliant builds at every stage before merge and deploy.</div>
+          </div>
+          <div class="pso-col">
+            <div class="pso-label outcome">Outcome</div>
+            <div class="pso-text"><strong>Security defects caught at commit</strong> rather than production. Configuration drift eliminated via automated Terraform + Policy-as-Code enforcement. Reusable pipeline template adopted across multiple teams.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DEVSECOPS LIFECYCLE MATRIX -->
+  <div class="section" id="lifecycle">
+    <div class="section-title">
+      <h2>DevSecOps Lifecycle Matrix</h2>
+      <div class="rule"></div>
+      <div class="sub">tools I use at each phase</div>
+    </div>
+    <div class="lifecycle-wrap">
+      <div class="lifecycle-header">// my toolchain mapped to the DevSecOps infinite loop</div>
+      <div class="lifecycle-grid">
+        <div class="lc-col">
+          <div class="lc-phase">
+            <div class="lc-phase-icon">📋</div>
+            <div class="lc-phase-name">PLAN</div>
+          </div>
+          <div class="lc-tools">
+            <div class="lc-tool blue">Jira</div>
+            <div class="lc-tool blue">Confluence</div>
+            <div class="lc-tool blue">Threat Modelling</div>
+            <div class="lc-tool yellow">Risk Triage</div>
+          </div>
+        </div>
+        <div class="lc-col">
+          <div class="lc-phase">
+            <div class="lc-phase-icon">💻</div>
+            <div class="lc-phase-name">CODE</div>
+          </div>
+          <div class="lc-tools">
+            <div class="lc-tool purple">SonarCloud</div>
+            <div class="lc-tool purple">SAST</div>
+            <div class="lc-tool green">Branch Policies</div>
+            <div class="lc-tool blue">GitHub</div>
+          </div>
+        </div>
+        <div class="lc-col">
+          <div class="lc-phase">
+            <div class="lc-phase-icon">🏗</div>
+            <div class="lc-phase-name">BUILD</div>
+          </div>
+          <div class="lc-tools">
+            <div class="lc-tool orange">Terraform</div>
+            <div class="lc-tool orange">tfsec</div>
+            <div class="lc-tool orange">Packer</div>
+            <div class="lc-tool blue">GitHub Actions</div>
+          </div>
+        </div>
+        <div class="lc-col">
+          <div class="lc-phase">
+            <div class="lc-phase-icon">🧪</div>
+            <div class="lc-phase-name">TEST</div>
+          </div>
+          <div class="lc-tools">
+            <div class="lc-tool red">Trivy</div>
+            <div class="lc-tool red">DAST</div>
+            <div class="lc-tool purple">SAST Gates</div>
+            <div class="lc-tool red">Wiz Scan</div>
+          </div>
+        </div>
+        <div class="lc-col">
+          <div class="lc-phase">
+            <div class="lc-phase-icon">📤</div>
+            <div class="lc-phase-name">RELEASE</div>
+          </div>
+          <div class="lc-tools">
+            <div class="lc-tool green">Azure DevOps</div>
+            <div class="lc-tool yellow">OPA / Conftest</div>
+            <div class="lc-tool yellow">Azure Policy</div>
+            <div class="lc-tool green">ACR</div>
+          </div>
+        </div>
+        <div class="lc-col">
+          <div class="lc-phase">
+            <div class="lc-phase-icon">🚀</div>
+            <div class="lc-phase-name">DEPLOY</div>
+          </div>
+          <div class="lc-tools">
+            <div class="lc-tool green">Argo CD</div>
+            <div class="lc-tool green">Helm</div>
+            <div class="lc-tool green">GitOps</div>
+            <div class="lc-tool green">AKS</div>
+          </div>
+        </div>
+        <div class="lc-col">
+          <div class="lc-phase">
+            <div class="lc-phase-icon">⚙️</div>
+            <div class="lc-phase-name">OPERATE</div>
+          </div>
+          <div class="lc-tools">
+            <div class="lc-tool blue">Wiz CNAPP</div>
+            <div class="lc-tool blue">Wiz KSPM</div>
+            <div class="lc-tool orange">n8n</div>
+            <div class="lc-tool blue">RBAC / IAM</div>
+          </div>
+        </div>
+        <div class="lc-col">
+          <div class="lc-phase">
+            <div class="lc-phase-icon">📊</div>
+            <div class="lc-phase-name">MONITOR</div>
+          </div>
+          <div class="lc-tools">
+            <div class="lc-tool purple">Sentinel</div>
+            <div class="lc-tool purple">Defender</div>
+            <div class="lc-tool blue">Azure Monitor</div>
+            <div class="lc-tool yellow">Splunk / SCOM</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAREER JOURNEY -->
+  <div class="section" id="journey">
+    <div class="section-title">
+      <h2>Career Journey</h2>
+      <div class="rule"></div>
+      <div class="sub">cloud ops → devsecops · 9 years</div>
+    </div>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot now"></div>
+        <div class="tl-header">
+          <div class="tl-role">Sr. Cloud Security / DevSecOps Engineer (Sr AVP)</div>
+          <div class="tl-period">2026 – Present</div>
+        </div>
+        <div class="tl-company">Wells Fargo International Solutions</div>
+        <div class="tl-growth now">⬆ DevSecOps Platform Lead</div>
+        <div class="tl-desc">Designing secure AKS platforms with full GitOps, OIDC-authenticated pipelines, Wiz KSPM, and end-to-end shift-left security across the SDLC.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dso"></div>
+        <div class="tl-header">
+          <div class="tl-role">Cloud Security Engineer</div>
+          <div class="tl-period">2024 – 2026</div>
+        </div>
+        <div class="tl-company">GlobalLogic India · Norstella &amp; Catalina Marketing</div>
+        <div class="tl-growth dso">⬆ DevSecOps Engineering</div>
+        <div class="tl-desc">Built DevSecOps pipeline blueprints, led a 250K-vulnerability cross-cloud remediation program, and pioneered AI/LLM security practices. Awarded Idea Alchemist 2025.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot sec"></div>
+        <div class="tl-header">
+          <div class="tl-role">Cloud Security Engineer</div>
+          <div class="tl-period">2022 – 2024</div>
+        </div>
+        <div class="tl-company">Northern Trust Corporation</div>
+        <div class="tl-growth sec">⬆ Cloud Security Specialisation</div>
+        <div class="tl-desc">Shifted focus to IaC security, policy-as-code, Sentinel/Defender threat detection, and automated patch compliance. First deep Wiz and tfsec integration work.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot devops"></div>
+        <div class="tl-header">
+          <div class="tl-role">DevOps Engineer</div>
+          <div class="tl-period">2021 – 2022</div>
+        </div>
+        <div class="tl-company">Deloitte USI · Northern Trust</div>
+        <div class="tl-growth devops">⬆ DevOps Engineering</div>
+        <div class="tl-desc">Deep Terraform IaC, ACR management, container security in CI/CD pipelines. First integration of security tooling (Wiz) into delivery workflows.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot cloud"></div>
+        <div class="tl-header">
+          <div class="tl-role">Cloud Engineer / Operations Engineer</div>
+          <div class="tl-period">2019 – 2021</div>
+        </div>
+        <div class="tl-company">Amdocs Inc. · Morningstar Inc.</div>
+        <div class="tl-growth cloud">⬆ Cloud Engineering</div>
+        <div class="tl-desc">Azure DevOps CI/CD, Terraform IaC, Packer image builds, Chef configuration management, patch automation with Ansible. Contributed to Global Automation CoE.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot ops"></div>
+        <div class="tl-header">
+          <div class="tl-role">Cloud Operations Engineer</div>
+          <div class="tl-period">2016 – 2019</div>
+        </div>
+        <div class="tl-company">MSCI Inc. (via HGS International)</div>
+        <div class="tl-growth ops">Foundation: Cloud &amp; Infrastructure Ops</div>
+        <div class="tl-desc">Azure VM/VNET/storage management, PowerShell automation, SCCM patching, Splunk monitoring. Built a custom IIS web portal for server health reporting. PG Diploma in Cyber Security (CDAC ACTS).</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="section" id="experience">
+    <div class="section-title">
+      <h2>Experience Detail</h2>
+      <div class="rule"></div>
+      <div class="sub">role-by-role breakdown</div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div>
+          <div class="exp-role">Sr. Cloud Security / DevSecOps Engineer (Sr AVP)</div>
+          <div class="exp-company">Wells Fargo International Solutions — Hyderabad, India</div>
+        </div>
+        <div class="exp-period">Jun 2026 – Present<br>Financial Services</div>
+      </div>
+      <div class="exp-stack">Azure · AKS · Kubernetes · Helm · Argo CD · GitHub Actions · Azure DevOps · Terraform · ACR · Wiz · Trivy · SonarCloud · OIDC · GitOps · PowerShell</div>
+      <div class="exp-highlights">
+        <span class="hl-tag cicd">CI/CD Security</span>
+        <span class="hl-tag gitops">GitOps</span>
+        <span class="hl-tag k8s">Kubernetes Security</span>
+        <span class="hl-tag sast">SAST / DAST</span>
+        <span class="hl-tag iac">IaC Scanning</span>
+        <span class="hl-tag vuln">Wiz CNAPP</span>
+      </div>
+      <div class="exp-body">
+        <div class="bullet-group">
+          <div class="bullet-group-label cicd">CI/CD &amp; Shift-Left Security</div>
+          <ul class="bullets">
+            <li>Built <strong>secure CI/CD pipelines</strong> in GitHub Actions and Azure DevOps with OIDC authentication, SonarCloud SAST, Trivy, DAST, and IaC scanning — policy gates blocking vulnerable builds before merge.</li>
+            <li>Enforced <strong>zero-Critical-vulnerability thresholds</strong> via quality gates and branch policies on all production branches.</li>
+          </ul>
+        </div>
+        <div class="bullet-group">
+          <div class="bullet-group-label gitops">GitOps &amp; Platform Engineering</div>
+          <ul class="bullets">
+            <li>Designed a <strong>secure AKS platform</strong> using Helm and Argo CD with PR-driven deployments and automated sync across Kubernetes environments.</li>
+            <li>Developed <strong>reusable Helm charts</strong> enforcing Kubernetes best practices and configuration consistency across environments.</li>
+          </ul>
+        </div>
+        <div class="bullet-group">
+          <div class="bullet-group-label k8s">Kubernetes Security</div>
+          <ul class="bullets">
+            <li>Configured <strong>RBAC, Network Policies, Security Contexts, Service Accounts</strong> enforcing least-privilege access across all workloads.</li>
+            <li>Deployed <strong>Wiz Sensor, Broker, and KSPM Connector</strong> for runtime visibility and Kubernetes posture management.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div>
+          <div class="exp-role">Cloud Security Engineer</div>
+          <div class="exp-company">GlobalLogic India — Pune (Norstella Healthcare &amp; Catalina Marketing / Retail)</div>
+        </div>
+        <div class="exp-period">May 2024 – May 2026<br>IT Services</div>
+      </div>
+      <div class="exp-stack">Azure · AWS · AKS · ACR · Wiz CNAPP · SonarCloud · Trivy · Terraform · GitHub Actions · Azure DevOps · n8n · Slack · Jira · Python · PowerShell</div>
+      <div class="exp-highlights">
+        <span class="hl-tag cicd">CI/CD Security</span>
+        <span class="hl-tag sast">SAST</span>
+        <span class="hl-tag iac">Policy-as-Code</span>
+        <span class="hl-tag policy">Governance</span>
+        <span class="hl-tag vuln">Vuln Management</span>
+        <span class="hl-tag monitor">n8n Automation</span>
+        <span class="hl-tag sast">AI/LLM Security</span>
+      </div>
+      <div class="exp-body">
+        <div class="bullet-group">
+          <div class="bullet-group-label cicd">DevSecOps Pipelines</div>
+          <ul class="bullets">
+            <li>Engineered <strong>end-to-end secure SDLC pipelines</strong> integrating SonarCloud SAST, DAST, IaC scanning, and container security gates — catching vulnerabilities at every stage before production.</li>
+            <li>Built <strong>n8n-powered workflow automation</strong> integrating Slack and Jira for real-time security alerting and ownership tracking.</li>
+          </ul>
+        </div>
+        <div class="bullet-group">
+          <div class="bullet-group-label iac">IaC &amp; Policy-as-Code</div>
+          <ul class="bullets">
+            <li>Automated <strong>multi-environment infrastructure</strong> with Terraform and Azure Policy-as-Code, eliminating configuration drift and enforcing security guardrails at deploy time.</li>
+            <li>Strengthened <strong>container security posture</strong> in AKS and ACR with image scanning, hardening standards, and deployment blocking for high-risk artifacts.</li>
+          </ul>
+        </div>
+        <div class="bullet-group">
+          <div class="bullet-group-label policy">Security Program Leadership</div>
+          <ul class="bullets">
+            <li>Led <strong>cross-cloud remediation program</strong> resolving ~250K Critical/High vulnerabilities — 70–80% backlog reduction, zero findings older than 30 days. Awarded <em>Idea Alchemist 2025</em>.</li>
+            <li>Established <strong>governance standards</strong> with SLA-driven remediation, risk prioritisation, and compliance tracking across enterprise cloud workloads.</li>
+          </ul>
+        </div>
+        <div class="bullet-group">
+          <div class="bullet-group-label ai">AI / LLM Security</div>
+          <ul class="bullets">
+            <li>Assessed <strong>AI threat models</strong> — prompt injection, model theft, data poisoning — implementing Managed Identity, RBAC, and secure API access patterns for AI workloads.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div>
+          <div class="exp-role">Cloud Security Engineer</div>
+          <div class="exp-company">Northern Trust Corporation — Pune, India</div>
+        </div>
+        <div class="exp-period">Sep 2022 – May 2024<br>Financial Services</div>
+      </div>
+      <div class="exp-stack">Azure · Terraform · Azure Automation · Azure Policy · Microsoft Defender for Cloud · Microsoft Sentinel · Wiz · Packer · PowerShell · tfsec</div>
+      <div class="exp-highlights">
+        <span class="hl-tag iac">IaC Security</span>
+        <span class="hl-tag policy">Policy-as-Code</span>
+        <span class="hl-tag monitor">Sentinel / Defender</span>
+        <span class="hl-tag vuln">Patch Compliance</span>
+      </div>
+      <div class="exp-body">
+        <ul class="bullets">
+          <li>Built <strong>reusable Terraform modules</strong> with tfsec and Wiz integration for proactive misconfiguration detection at provisioning time.</li>
+          <li>Introduced <strong>policy-as-code</strong> with Azure Policy and Terraform, automating security baseline enforcement and eliminating manual compliance overhead.</li>
+          <li>Configured <strong>Microsoft Sentinel, Defender for Cloud</strong>, and Azure Security Center with custom threat intelligence feeds and automated response playbooks.</li>
+          <li>Increased patch compliance via <strong>automated Azure Update Management</strong> across the enterprise VM fleet.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div>
+          <div class="exp-role">DevOps Engineer → Cloud / Operations Engineer (Earlier Roles)</div>
+          <div class="exp-company">Deloitte USI · Amdocs Inc. · Morningstar Inc. · MSCI Inc.</div>
+        </div>
+        <div class="exp-period">Sep 2016 – Jan 2021</div>
+      </div>
+      <div class="exp-body">
+        <ul class="bullets">
+          <li>Architected <strong>Terraform IaC modules</strong> for VMs, networking, databases, and IAM; integrated Wiz and Azure scanning into CI/CD for pre-release vulnerability detection.</li>
+          <li>Automated <strong>patch management</strong> for Windows, Linux, and AWS EC2 via Azure Update Management and Ansible; built Packer images with Chef/PowerShell for standardised secure VM builds.</li>
+          <li>Contributed to <strong>Global Automation CoE</strong> at Morningstar with reusable automation solutions across enterprise infrastructure.</li>
+          <li>Built a <strong>custom IIS web portal</strong> (PHP, HTML, CSS, MySQL, PowerShell) for daily server health reporting at MSCI — contributed best practices to Microsoft TechNet Library.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CURRENTLY EXPLORING -->
+  <div class="section" id="exploring">
+    <div class="section-title">
+      <h2>Currently Exploring</h2>
+      <div class="rule"></div>
+      <div class="sub">what's next on the radar</div>
+    </div>
+    <div class="exploring-grid">
+      <div class="explore-card ai">
+        <div class="explore-icon">🤖</div>
+        <div class="explore-title">Agentic AI &amp; AI Security</div>
+        <div class="explore-desc">Building and securing autonomous AI agents — prompt injection defences, model access controls, LLM threat modelling, and secure MLOps pipeline design.</div>
+        <div class="explore-status">actively learning</div>
+      </div>
+      <div class="explore-card mlops">
+        <div class="explore-icon">🧬</div>
+        <div class="explore-title">MLOps Security</div>
+        <div class="explore-desc">Securing the ML lifecycle end-to-end — artifact protection, model versioning integrity, inference endpoint hardening, and data poisoning prevention.</div>
+        <div class="explore-status">hands-on practice</div>
+      </div>
+      <div class="explore-card finops">
+        <div class="explore-icon">📊</div>
+        <div class="explore-title">FinOps &amp; Cloud Economics</div>
+        <div class="explore-desc">Combining security governance with cost optimisation — rightsizing, commitment strategies, tagging policies, and building FinOps into platform engineering.</div>
+        <div class="explore-status">in progress</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main-col -->
+
+<!-- ════ SIDE COLUMN ════ -->
+<div class="side-col">
+
+  <div class="side-section">
+    <div class="side-title">Contact</div>
+    <div class="contact-row"><span class="ic">✉</span><a href="mailto:saxena00726@gmail.com">saxena00726@gmail.com</a></div>
+    <div class="contact-row"><span class="ic">☎</span>+91 74093 04040</div>
+    <div class="contact-row"><span class="ic">⌖</span>Hyderabad, India</div>
+    <div class="contact-row"><span class="ic">⬡</span><a href="https://www.linkedin.com/in/akash-saxena-00726/" target="_blank">linkedin/akash-saxena-00726</a></div>
+    <div class="contact-row"><span class="ic">✍</span><a href="https://medium.com/@CloudSecurityArchitect-Akash" target="_blank">Medium · CloudSecurityArchitect</a></div>
+  </div>
+
+  <div class="side-section">
+    <div class="side-title">Quantified Impact</div>
+    <div class="impact-grid">
+      <div class="impact-cell"><div class="num">9+</div><div class="lbl">years in cloud &amp; security</div></div>
+      <div class="impact-cell"><div class="num">250K</div><div class="lbl">vulns remediated</div></div>
+      <div class="impact-cell"><div class="num">70–80%</div><div class="lbl">backlog reduction</div></div>
+      <div class="impact-cell"><div class="num">30d</div><div class="lbl">max age Critical finding</div></div>
+    </div>
+  </div>
+
+  <div class="side-section">
+    <div class="side-title">DevSecOps Depth</div>
+    <div class="skill-row">
+      <div class="skill-name"><span>CI/CD Pipeline Security</span><span>9 yrs</span></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-name"><span>Terraform / IaC Security</span><span>6 yrs</span></div>
+      <div class="skill-bar"><div class="skill-fill orange" style="width:88%"></div></div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-name"><span>GitHub Actions / Azure DevOps</span><span>5 yrs</span></div>
+      <div class="skill-bar"><div class="skill-fill green" style="width:90%"></div></div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-name"><span>Wiz CNAPP / CSPM</span><span>4 yrs</span></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-name"><span>Kubernetes / AKS Security</span><span>4 yrs</span></div>
+      <div class="skill-bar"><div class="skill-fill green" style="width:80%"></div></div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-name"><span>SAST / SonarCloud / Trivy</span><span>4 yrs</span></div>
+      <div class="skill-bar"><div class="skill-fill purple" style="width:82%"></div></div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-name"><span>PowerShell / Python</span><span>8 yrs</span></div>
+      <div class="skill-bar"><div class="skill-fill orange" style="width:87%"></div></div>
+    </div>
+  </div>
+
+  <div class="side-section">
+    <div class="side-title">Core Expertise</div>
+    <div class="cert-item">CI/CD Security &amp; Shift-Left Practices</div>
+    <div class="cert-item">Kubernetes Platform Security (AKS, KSPM)</div>
+    <div class="cert-item">Infrastructure as Code Security</div>
+    <div class="cert-item">Cloud Security Posture Management</div>
+    <div class="cert-item">GitOps &amp; Platform Engineering</div>
+    <div class="cert-item">Secure SDLC &amp; DevSecOps Governance</div>
+    <div class="cert-item">AI / LLM Security</div>
+    <div class="cert-item">Vulnerability Management at Scale</div>
+  </div>
+
+  <div class="side-section">
+    <div class="side-title">Certifications</div>
+    <div class="cert-item">CKA — Linux Foundation</div>
+    <div class="cert-item">AZ-500 Azure Security Engineer</div>
+    <div class="cert-item">AZ-400 DevOps Engineer Expert</div>
+    <div class="cert-item">AZ-103 Azure Administrator</div>
+    <div class="cert-item">AWS Solutions Architect – Associate</div>
+    <div class="cert-item">HashiCorp Terraform Associate</div>
+    <div class="cert-item">GitHub Foundations</div>
+    <div class="cert-item">CEH v9 — EC-Council</div>
+    <div class="cert-item">ITIL v4 Foundation</div>
+    <div class="cert-item">N8N Certified</div>
+  </div>
+
+  <div class="side-section">
+    <div class="side-title">Education</div>
+    <div class="cert-item">PG Diploma — IT Infrastructure &amp; Cyber Security, CDAC ACTS Pune (2016)</div>
+    <div class="cert-item">B.Tech — Information Technology, Mangalayatan University (2015)</div>
+  </div>
+
+  <div class="side-section">
+    <div class="side-title">Awards</div>
+    <div class="award-row">
+      <span class="award-em">⚗️</span>
+      <div>
+        <div class="award-title">Idea Alchemist — GlobalLogic 2025</div>
+        <div class="award-desc">Cross-cloud security remediation program addressing ~250K enterprise findings.</div>
+      </div>
+    </div>
+    <div class="award-row">
+      <span class="award-em">⭐</span>
+      <div>
+        <div class="award-title">Certificate of Recognition — MSCI Inc.</div>
+        <div class="award-desc">Geneva datacentre migration project.</div>
+      </div>
+    </div>
+    <div class="award-row">
+      <span class="award-em">🏅</span>
+      <div>
+        <div class="award-title">Spot Award — Morningstar Inc.</div>
+        <div class="award-desc">Server retirement automation &amp; cloud deployment streamlining.</div>
+      </div>
+    </div>
+    <div class="award-row">
+      <span class="award-em">🥇</span>
+      <div>
+        <div class="award-title">Gold Medal — CBSE East Zone Judo</div>
+        <div class="award-desc">Athletic excellence &amp; sportsmanship.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /side-col -->
+</div><!-- /body-wrap -->
+
+<footer>
+  <span>akash-saxena.github.io &nbsp;·&nbsp; Senior DevSecOps &amp; Cloud Security Engineer</span>
+  <span>updated · 2026</span>
+</footer>
+
+<style>
+@media print {
+  nav { display: none; }
+  body { background: white; color: black; }
+  :root {
+    --bg: #fff; --surface: #f6f8fa; --surface2: #edf0f3;
+    --border: #d0d7de; --text: #1f2328; --muted: #57606a;
+    --dim: #8c959f; --blue: #0969da; --green: #1a7f37;
+    --orange: #bc4c00; --purple: #6639ba; --red: #cf222e; --yellow: #9a6700;
+  }
+  .pipeline-visual, .lifecycle-wrap, .proj-card, .explore-card,
+  .pillar, .impact-cell { border: 1px solid #d0d7de !important; }
+  .tl-item { page-break-inside: avoid; }
+  .proj-card { page-break-inside: avoid; }
+}
+</style>
+
+</body>
+</html>
